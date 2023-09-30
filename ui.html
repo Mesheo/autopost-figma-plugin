@@ -13,17 +13,17 @@
 </style>
 
 
-<h1> Petma plugin </h1>
+<h1> Insta2Figma Plugin</h1>
 
 <div>
-    <label for="username">Username</label>
-    <input class="input_field" type="text" value="Your Petma Username" id="username">
+    <label for="Username ">Username</label>
+    <input class="input_field" type="text" value="Username of the profile" id="username">
 
-    <label for="name">Name</label>
-    <input class="input_field" type="text" value="Your Petma Display name" id="name">
+    <label for="Link">Name</label>
+    <input class="input_field" type="text" value="URL of the instagram profie" id="name">
 
-    <label for="description">Description</label>
-    <input class="textarea" type="text" value="Your post goes here" id="description">
+    <label for="Filter">Description</label>
+    <input class="textarea" type="text" value="Here will be possible filters like only first 10 photos. Only single posts etc" id="description">
 </div>
 
 <!-- Switch checked -->
@@ -33,16 +33,32 @@
 </div>
 
 <div class="radio">
-    <input id="radioButton1" type="radio" class="radio_button" name="variantGroup">
+    <input id="radioButton1" type="radio" class="radio_button" name="variantGroup" value="No Image">
     <label for="radioButton1" class="radio_button">No Image</label>
     
-    <input id="radioButton2" type="radio" class="radio_button" name="variantGroup">
+    <input id="radioButton2" type="radio" class="radio_button" name="variantGroup" value="Single Image">
     <label for="radioButton2" class="radio_button">Single Image</label>
 
-    <input id="radioButton3" type="radio" class="radio_button" name="variantGroup">
+    <input id="radioButton3" type="radio" class="radio_button" name="variantGroup" value="Carousel">
     <label for="radioButton3" class="radio_button">Carousel</label>
 </div>
 
 <div>
     <button class="button button--primary" id="submit-post">Submit</button>
 </div>
+
+<script>
+    document.getElementById('submit-post').onclick = () => {
+        const name = document.getElementById('name').value
+        const username = document.getElementById('username').value
+        const description = document.getElementById('description').value
+        const darkModeState = document.getElementById('dark-mode-on').checked
+
+        const imageVariant = document.querySelector('input[name="variantGroup"]:checked').value
+
+        const pluginInput = {name, username, description, darkModeState, imageVariant}
+        console.log("Submit information send and these are the values ", pluginInput)
+
+        parent.postMessage({pluginMessage: pluginInput}, '*');
+    }
+</script>
